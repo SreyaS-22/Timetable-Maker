@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Your AI Assistant</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}"> 
+    </head>
+
+    <body>
+
+        <div class="Welcome-Page" id="welcomePage">
+
+             <h1>🤖 Your AI Assistant</h1>
+
+             <p>What would you like my name to be?</p>
+
+             <input type="text" id="nameInput" placeholder="Enter a name:">
+
+             <button id="continueButton">Continue</button>
+
+        </div>
+
+        <div class="Chatbot" id="chatBot">
+            <h1 id="aiHeading">Your AI Assistant</h1>
+            <div class="Chatbox" id="chatBox">
+
+               
+
+            </div>
+
+            <div class="Input-Box">
+
+                <input type="text" id="messageInput" placeholder="Type a message....">
+                <button id="sendButton">Send</button>
+
+            </div>
+
+        </div>
+
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    </body>
+
+</html>
