@@ -1,15 +1,36 @@
 from openai import OpenAI
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import os
 
+load_dotenv()
+
+
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
+
 
 @app.route("/")
 
 def home():
     return render_template("index.html")
+
+@app.route("/chat", methods=["POST"])
+
+def chat():
+    data = request.get_json()
+
+    message = data["message"]
+
+    response = client.responses.create(
+        input=message,
+        model="gpt-5-mini"
+    )
+
+    return (response.output_text)
+
 def Terminal_App():
 
     def AI_Chatbot():
@@ -29,13 +50,6 @@ def Terminal_App():
                     )
 
             print(name, ": ", response.output_text)
-
-        
-    load_dotenv()
-
-
-
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     print("Hello, I am your personalised AI bot. I am here to help with any of your education-related needs.")
 
@@ -66,6 +80,8 @@ def Terminal_App():
 
         else:
             print("Invalid input entered.")
+        
+
 
 
 if __name__ == "__main__":

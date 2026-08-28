@@ -30,10 +30,21 @@ continueButton.addEventListener("click", function() {
     welcomePage.style.display = "none";
     chatBot.style.display = "block";
 
+    const aiMessage = document.createElement("div");
+
+    aiMessage.className = "Message AI-Message";
+
+    aiMessage.innerHTML = "<strong>"+ aiName + "</strong>" + ": Hello! How can I help?";
+
+    chatBox.appendChild(aiMessage);
 });
 
-sendButton.addEventListener("click", function() {
-    const message = messageInput.value;
+
+    
+
+async function sendMessage() {
+
+    const message = messageInput.value.trim();
 
     if (message === "") {
         return;
@@ -43,18 +54,69 @@ sendButton.addEventListener("click", function() {
 
     userMessage.className = "Message User-Input";
 
-    userMessage.textContent = "You: " + message;
+    userMessage.innerHTML = "<strong>You: </strong>" + message;
 
     chatBox.appendChild(userMessage);
 
     messageInput.value = "";
 
-    const aiMessage = document.createElement("div");
+    sendButton.disabled = true;
 
-    aiMessage.className = "Message AI-Message";
+    const typingMessage = document.createElement("div");
 
-    aiMessage.textContent = aiName + ": Hello! How can I help?";
+    typingMessage.className = "Message AI-Message";
 
-    chatBox.appendChild(aiMessage);
+    typingMessage.innerHTML = "<strong>"+ aiName + ": </strong>Thinking...";
+
+    chatBox.appendChild(typingMessage);
+
+    try {
+
+        const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: message
+        })
+
+    });
+
+    if (!response.ok) {
+        throw new Error("Server Error")
+    }
+
+    const aiResponse = await response.text();
+
+    typingMessage.innerHTML = "<strong>" + aiName + ": </strong>" + aiResponse.replace(/\n/g, "<br>");
+
+    }
+    
+    catch (error) {
+
+        typingMessage.innerHTML =
+
+        "<strong>" + aiName + ":</strong>" + "Sorry, something went wrong. Please try again.";
+
+        console.error(error)
+
+    }
+
+    sendButton.disabled = false;
+
+    messageInput.focus();
+
+
+
+}
+
+
+sendButton.addEventListener("click", sendMessage);
+
+messageInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
 
 });
