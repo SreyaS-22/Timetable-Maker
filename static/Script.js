@@ -7,7 +7,17 @@ const nameInput = document.getElementById("nameInput");
 
 const continueButton = document.getElementById("continueButton");
 
+const mainMenu = document.getElementById("mainMenu");
+
 const chatBot = document.getElementById("chatBot");
+
+const revisionPage = document.getElementById("revisionPage");
+
+const chatButton = document.getElementById("chatButton");
+
+const timetableButton = document.getElementById("timetableButton");
+
+const backButton = document.getElementById("backButton");
 
 const messageInput = document.getElementById("messageInput");
 
@@ -17,18 +27,17 @@ const chatBox = document.getElementById("chatBox");
 
 const aiHeading = document.getElementById("aiHeading");
 
-continueButton.addEventListener("click", function() {
-    aiName = nameInput.value;
+mainMenu.style.display = "none";
+chatBot.style.display  = "none";
+revisionPage.style.display = "none";
 
-    if (aiName === "") {
-        alert("Please enter a name!");
-        return;
-    }
+
+chatButton.addEventListener("click", function() {
+
+    mainMenu.style.display = "none";
+    chatBot.style.display = "block";
 
     aiHeading.textContent = "🤖 " + aiName;
-    
-    welcomePage.style.display = "none";
-    chatBot.style.display = "block";
 
     const aiMessage = document.createElement("div");
 
@@ -39,8 +48,20 @@ continueButton.addEventListener("click", function() {
     chatBox.appendChild(aiMessage);
 });
 
+timetableButton.addEventListener("click", function() {
+    mainMenu.style.display = "none";
+    revisionPage.style.display = "block";
+});
 
-    
+backButton.addEventListener("click", function() {
+    revisionPage.style.display = "none";
+    mainMenu.style.display = "block";
+});
+
+chatbotBackButton.addEventListener("click", function(){
+    chatBot.style.display = "none";
+    mainMenu.style.display = "block";
+});
 
 async function sendMessage() {
 
@@ -112,11 +133,36 @@ async function sendMessage() {
 }
 
 
-sendButton.addEventListener("click", sendMessage);
 
 messageInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         sendMessage();
+    }
+
+});
+
+
+
+function gotoMainMenu() {
+
+
+    aiName = nameInput.value.trim()
+
+    if (aiName === "") {
+        alert("Please enter a name!");
+        return;
+    }
+
+    
+    welcomePage.style.display = "none";
+    mainMenu.style.display = "block";
+}
+
+continueButton.addEventListener("click", gotoMainMenu);
+
+nameInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        gotoMainMenu();
     }
 
 });
