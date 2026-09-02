@@ -64,10 +64,39 @@
             <p>
                 Here, you can make your own personalised revision timetables based on your subject weaknesses, available study time, and exam schedule.
             </p>
+            
+            <p>
+                First, upload 2 of your previous report cards so that I can understand your subject weaknesses and strengths.
+            </p>
+
+            <label for="reportCard1">Report Card 1:</label>
+            <input type="file" id="reportCard1" accept=".pdf,.jpeg,.png,.jpg">
+
+
+            <label for="reportCard2">Report Card 2:</label>
+            <input type="file" id="reportCard2" accept=".pdf,.jpeg,.jpg,.png">
+
+            <button id = "continueTimetableButton">Continue</button>
 
             <button id="backButton">
                 Back to Menu
             </button>
+
+        </div>
+
+        <div class="Exam-Details" id="examDetails">
+
+            <h1>📚 Your Exam Details</h1>
+
+            <P>Now, tell me about your upcoming exams and when you are available to revise.</P>
+
+            <label for="examDates">Exam Dates:</label>
+            <input type="text" id="examDates" placeholder = "e.g. Maths - 15 June">
+
+            <label for="studyTime">Available study time:</label>
+            <input type = "text" id="studyTime" placeholder = "e.g. 6-8pm on Monday...">
+
+            <button id="generateTimetableButton">Generate Timetable:</button>
 
         </div>
 

@@ -27,6 +27,16 @@ const chatBox = document.getElementById("chatBox");
 
 const aiHeading = document.getElementById("aiHeading");
 
+const reportCard1 = document.getElementById("reportCard1");
+
+const reportCard2 = document.getElementById("reportCard2");
+
+const continueTimetableButton = document.getElementById("continueTimetableButton");
+
+const examDetails = document.getElementById("examDetails");
+
+const generateTimetableButton = document.getElementById("generateTimetableButton");
+
 mainMenu.style.display = "none";
 chatBot.style.display  = "none";
 revisionPage.style.display = "none";
@@ -164,5 +174,19 @@ nameInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         gotoMainMenu();
     }
+
+});
+
+
+continueTimetableButton.addEventListener("click", function() {
+    if (reportCard1.files.length === 0 || reportCard2.files.length === 0) {
+        alert("Please upload both files before continuing.");
+        return
+    }
+
+    alert("Both report cards have been uploaded!");
+
+    revisionPage.style.display = "none";
+    examDetails.style.display = "block";
 
 });
